@@ -11,10 +11,17 @@
 		var socket = io('http://localhost:2015');
 		
 		socket.emit('exec', 'ls -al');
-		socket.on('result', function (data) {
+		socket.on('successfulResult', function (data) {
+			console.log(data);
+		});
+
+		socket.on('successfulError', function (data) {
+			console.log(data);
+		});
+
+		socket.on('execError', function (data) {
 			console.log(data);
 		});
 	</script>
 </body>
 </html>
-
