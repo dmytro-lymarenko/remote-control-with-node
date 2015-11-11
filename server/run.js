@@ -12,7 +12,9 @@ io.on('connection', function(socket) {
 				if(err) {
 					socket.emit('successfulError', err);
 				}
-				socket.emit('successfulResult', out);
+				if(out) {
+					socket.emit('successfulResult', out);
+				}
 			});
 		} catch(e) {
 			socket.emit('execError', e);
