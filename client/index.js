@@ -61,6 +61,7 @@ window.addEventListener('load', function() {
 			text = data;
 		}
 		output.value += '********************************\n' + title + '\n' + text + '\n';
+		output.scrollTop = output.scrollHeight;
 	};
 
 	var socket = io('http://localhost:2015');
@@ -79,6 +80,8 @@ window.addEventListener('load', function() {
 
 	var executeCommand = function(command) {
 		socket.emit('exec', command);
+		history.add(command);
+		renderHistory();
 	};
 
 	againCommand = function(index, command) {
@@ -99,11 +102,8 @@ window.addEventListener('load', function() {
 	});
 
 	executeElement.addEventListener('click', function() {
-		var command = commandElement.value;
-		executeCommand(command);
-		history.add(command);
+		executeCommand(commandElement.value);
 		commandElement.value = '';
-		renderHistory();
 	});
 
 	commandElement.addEventListener('keypress', function(event) {
