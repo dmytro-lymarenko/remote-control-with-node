@@ -8,11 +8,13 @@ window.addEventListener('load', function() {
 	var executeElement = document.getElementById('execute');
 	var outputElement = document.getElementById('output');
 
+	var openUrlElement = document.getElementById('openUrl');
 	var openUrlInChromeElement = document.getElementById('openUrlInChrome');
+	var openUrlInFirefoxElement = document.getElementById('openUrlInFirefox');
 
 	// history
 	var history = {
-		visible: false,
+		visible: true,
 		items: [],
 
 		add: function(command) {
@@ -48,7 +50,9 @@ window.addEventListener('load', function() {
 		if(history.visible) {
 			historyElement.innerHTML = history.render();
 		}
+		showHistoryElement.innerHTML = history.getButtonText();
 	};
+	renderHistory();
 
 	removeFromHistory = function(index) {
 		history.remove(index);
@@ -115,6 +119,10 @@ window.addEventListener('load', function() {
 	});
 
 	openUrlInChromeElement.addEventListener('click', function() {
-		executeCommand('google-chrome "https://www.youtube.com/"');
+		executeCommand('google-chrome "' + openUrlElement.value + '"');
+	});
+
+	openUrlInFirefoxElement.addEventListener('click', function() {
+		executeCommand('firefox "' + openUrlElement.value + '"');
 	});
 });
