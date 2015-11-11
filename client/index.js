@@ -8,6 +8,8 @@ window.addEventListener('load', function() {
 	var executeElement = document.getElementById('execute');
 	var outputElement = document.getElementById('output');
 
+	var openUrlInChromeElement = document.getElementById('openUrlInChrome');
+
 	// history
 	var history = {
 		visible: false,
@@ -28,7 +30,7 @@ window.addEventListener('load', function() {
 			for (var i = this.items.length - 1; i >= 0; i--) {
 				var command = this.items[i];
 				res += '<li><span>' + command + '</span>'
-					+ '<button onclick="againCommand(' + i + ', \'' + command +'\')">Again</button>'
+					+ '<button onclick="againCommand(' + i + ')">Again</button>'
 					+ '<button onclick="removeFromHistory(' + i + ')">Remove</button></li>';
 			}
 			return res;
@@ -84,8 +86,8 @@ window.addEventListener('load', function() {
 		renderHistory();
 	};
 
-	againCommand = function(index, command) {
-		commandElement.value = command;
+	againCommand = function(index) {
+		commandElement.value = history.items[index];
 		removeFromHistory(index);
 	};
 
@@ -110,5 +112,9 @@ window.addEventListener('load', function() {
 		if(event.keyCode == 13) {
 			executeElement.click();
 		}
-	})
+	});
+
+	openUrlInChromeElement.addEventListener('click', function() {
+		executeCommand('google-chrome "https://www.youtube.com/"');
+	});
 });
