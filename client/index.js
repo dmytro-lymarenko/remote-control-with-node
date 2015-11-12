@@ -1,16 +1,30 @@
+var socketUrl = 'http://localhost:2015';
+
 var removeFromHistory;
 var againCommand;
 
 window.addEventListener('load', function() {
+	var statusElement = document.getElementById('status');
 	var commandElement = document.getElementById('command');
 	var showHistoryElement = document.getElementById('showHistory');
 	var historyElement = document.getElementById('history');
 	var executeElement = document.getElementById('execute');
 	var outputElement = document.getElementById('output');
 
+	var closeChromeElement = document.getElementById('closeChrome');
+	var closeFirefoxElement = document.getElementById('closeFirefox');
+	var closeSkypeElement = document.getElementById('closeSkype');
+	var closePhpStormAndAndroidStudioElement = document.getElementById('closePhpStormAndAndroidStudio');
+	var closeGeditElement = document.getElementById('closeGedit');
+	var closeSublimeElement = document.getElementById('closeSublime');
+
 	var openUrlElement = document.getElementById('openUrl');
 	var openUrlInChromeElement = document.getElementById('openUrlInChrome');
 	var openUrlInFirefoxElement = document.getElementById('openUrlInFirefox');
+
+	var playVkSoundElement = document.getElementById('playVkSound');
+	var alertMessageElement = document.getElementById('alertMessage');
+	var showAlertElement = document.getElementById('showAlert');
 
 	var uploadFileElement = document.getElementById('uploadFile');
 	var progressFileUploadPercentElement = document.getElementById('progressFileUploadPercent');
@@ -76,7 +90,17 @@ window.addEventListener('load', function() {
 		output.scrollTop = output.scrollHeight;
 	};
 
-	var socket = io('http://localhost:2015');
+	var socket = io(socketUrl);
+
+	socket.on('connect', function() {
+		statusElement.innerHTML = 'Status: online';
+		statusElement.style['color'] = 'green';
+	});
+
+	socket.on('disconnect', function() {
+		statusElement.innerHTML = 'Status: offline';
+		statusElement.style['color'] = 'red';
+	});
 		
 	socket.on('successfulResult', function (data) {
 		print('successfulResult:', data);
@@ -154,6 +178,30 @@ window.addEventListener('load', function() {
 		}
 	});
 
+	closeChromeElement.addEventListener('click', function() {
+		executeCommand('killall chrome');
+	});
+
+	closeFirefoxElement.addEventListener('click', function() {
+		executeCommand('killall firefox');
+	});
+
+	closeSkypeElement.addEventListener('click', function() {
+		executeCommand('killall skype');
+	});
+
+	closePhpStormAndAndroidStudioElement.addEventListener('click', function() {
+		executeCommand('killall java');
+	});
+
+	closeGeditElement.addEventListener('click', function() {
+		executeCommand('killall gedit');
+	});
+
+	closeSublimeElement.addEventListener('click', function() {
+		executeCommand('killall sublime_text');
+	});
+
 	openUrlInChromeElement.addEventListener('click', function() {
 		if(openUrlElement.value.trim()) {
 			executeCommand('google-chrome "' + openUrlElement.value + '"');
@@ -170,5 +218,13 @@ window.addEventListener('load', function() {
 			openUrlElement.value = '';
 			openUrlElement.focus();
 		}
+	});
+
+	playVkSoundElement.addEventListener('click', function() {
+		executeCommand('play uploads/vk.wav');
+	});
+
+	showAlertElement.addEventListener('click', function() {
+		executeCommand('notify-send "' + alertMessageElement.value + '"');
 	});
 });
