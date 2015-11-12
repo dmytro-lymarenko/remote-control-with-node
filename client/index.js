@@ -14,6 +14,7 @@ window.addEventListener('load', function() {
 
 	var uploadFileElement = document.getElementById('uploadFile');
 	var progressFileUploadPercentElement = document.getElementById('progressFileUploadPercent');
+	var showUploadedFiles = document.getElementById('showUploadedFiles');
 
 	// history
 	var history = {
@@ -106,6 +107,10 @@ window.addEventListener('load', function() {
 	uploader.addEventListener('error', function(event) {
 		print('Error upload file:', event.message);
 		progressFileUploadPercent.style['background-color'] = 'red';
+	});
+
+	showUploadedFiles.addEventListener('click', function() {
+		executeCommand('ls -al uploads');
 	});
 
 	var executeCommand = function(command) {
