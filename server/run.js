@@ -1,10 +1,15 @@
 var server = require('http').createServer();
 var io = require('socket.io')(server);
+var siofu = require("socketio-file-upload");
 
 var exec = require('child_process').exec;
 
 io.on('connection', function(socket) {
 	console.log('connect');
+
+	var uploader = new siofu();
+    uploader.dir = "./uploads";
+    uploader.listen(socket);
 	
 	socket.on('exec', function(command) {
 		try {

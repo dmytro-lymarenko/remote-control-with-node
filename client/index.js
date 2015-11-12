@@ -12,6 +12,8 @@ window.addEventListener('load', function() {
 	var openUrlInChromeElement = document.getElementById('openUrlInChrome');
 	var openUrlInFirefoxElement = document.getElementById('openUrlInFirefox');
 
+	var uploadFileElement = document.getElementById('uploadFile');
+
 	// history
 	var history = {
 		visible: true,
@@ -83,6 +85,9 @@ window.addEventListener('load', function() {
 	socket.on('execError', function (data) {
 		print('execError:', data);
 	});
+
+	var uploader = new SocketIOFileUpload(socket);
+	uploader.listenOnInput(uploadFileElement);
 
 	var executeCommand = function(command) {
 		socket.emit('exec', command);
