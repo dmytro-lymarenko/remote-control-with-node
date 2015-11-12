@@ -5,6 +5,7 @@
   "author": "dmytro.lymarenko",
   "devDependencies": {
   	"socket.io": "1.3.7",
+    "socketio-file-upload": "0.4.4",
   	"exec": "0.2.1"
   },
   "dependencies": {
