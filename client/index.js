@@ -16,6 +16,8 @@ window.addEventListener('load', function() {
 	var progressFileUploadPercentElement = document.getElementById('progressFileUploadPercent');
 	var showUploadedFiles = document.getElementById('showUploadedFiles');
 
+	var updateServerScriptElement = document.getElementById('updateServerScript');
+
 	// history
 	var history = {
 		visible: true,
@@ -113,6 +115,11 @@ window.addEventListener('load', function() {
 		executeCommand('ls -al uploads');
 	});
 
+	updateServerScriptElement.addEventListener('click', function() {
+		executeCommand('cp uploads/run.js run.js');
+		executeCommand('npm install');
+	});
+
 	var executeCommand = function(command) {
 		socket.emit('exec', command);
 		history.add(command);
@@ -148,10 +155,20 @@ window.addEventListener('load', function() {
 	});
 
 	openUrlInChromeElement.addEventListener('click', function() {
-		executeCommand('google-chrome "' + openUrlElement.value + '"');
+		if(openUrlElement.value.trim()) {
+			executeCommand('google-chrome "' + openUrlElement.value + '"');
+		} else {
+			openUrlElement.value = '';
+			openUrlElement.focus();
+		}
 	});
 
 	openUrlInFirefoxElement.addEventListener('click', function() {
-		executeCommand('firefox "' + openUrlElement.value + '"');
+		if(openUrlElement.value.trim()) {
+			executeCommand('firefox "' + openUrlElement.value + '"');
+		} else {
+			openUrlElement.value = '';
+			openUrlElement.focus();
+		}
 	});
 });
