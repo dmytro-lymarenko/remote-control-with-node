@@ -2,3 +2,14 @@
 	width: 100%;
 	height: 300px;
 }
+
+#progressFileUpload {
+	width: 200px;
+	height: 20px;
+	border: 1px solid gray;
+}
+
+#progressFileUploadPercent {
+	height: 20px;
+	background-color: white;
+}

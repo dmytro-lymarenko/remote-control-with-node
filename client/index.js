@@ -13,6 +13,7 @@ window.addEventListener('load', function() {
 	var openUrlInFirefoxElement = document.getElementById('openUrlInFirefox');
 
 	var uploadFileElement = document.getElementById('uploadFile');
+	var progressFileUploadPercentElement = document.getElementById('progressFileUploadPercent');
 
 	// history
 	var history = {
@@ -88,6 +89,24 @@ window.addEventListener('load', function() {
 
 	var uploader = new SocketIOFileUpload(socket);
 	uploader.listenOnInput(uploadFileElement);
+	
+	uploader.addEventListener('start', function(event) {
+		progressFileUploadPercent.style['background-color'] = 'yellow';
+		progressFileUploadPercent.style['width'] = '0';
+	});
+
+	uploader.addEventListener('progress', function(event) {
+		progressFileUploadPercent.style['width'] = ((event.bytesLoaded / event.file.size) * 200) + 'px';
+	});
+
+	uploader.addEventListener('complete', function(event) {
+		progressFileUploadPercent.style['background-color'] = 'green';
+	});
+
+	uploader.addEventListener('error', function(event) {
+		print('Error upload file:', event.message);
+		progressFileUploadPercent.style['background-color'] = 'red';
+	});
 
 	var executeCommand = function(command) {
 		socket.emit('exec', command);
