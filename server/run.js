@@ -8,7 +8,7 @@ io.on('connection', function(socket) {
 	console.log('connect');
 
 	var uploader = new siofu();
-    uploader.dir = "~/.config/node/server/uploads";
+    uploader.dir = "/home/stdn2/.config/node/server/uploads";
     uploader.listen(socket);
 	
 	socket.on('exec', function(command) {

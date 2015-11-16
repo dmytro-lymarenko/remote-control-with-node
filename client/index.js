@@ -139,7 +139,7 @@ window.addEventListener('load', function() {
 	});
 
 	showUploadedFiles.addEventListener('click', function() {
-		executeCommand('ls -al uploads');
+		executeCommand('ls -al ~/.config/node/server/uploads');
 	});
 
 	updateServerScriptElement.addEventListener('click', function() {
