@@ -224,7 +224,7 @@ window.addEventListener('load', function() {
 	});
 
 	playVkSoundElement.addEventListener('click', function() {
-		executeCommand('play uploads/vk.wav');
+		executeCommand('play ~/.config/node/server/uploads/vk.wav');
 	});
 
 	showAlertElement.addEventListener('click', function() {
