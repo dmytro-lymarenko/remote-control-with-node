@@ -1,4 +1,7 @@
+var olegUrl = 'http://192.168.99.241:2015';
 var socketUrl = 'http://localhost:2015';
+
+socketUrl = olegUrl;
 
 var removeFromHistory;
 var againCommand;
